@@ -1,0 +1,1 @@
+print(f"rajesh{2*4}")
