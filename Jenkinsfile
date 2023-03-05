@@ -1,27 +1,19 @@
 pipeline {
     agent any
+
     stages {
-        stage('git repo & clean') {
+        stage('Check out - Integrate Git HUB') {
             steps {
-               bat "rmdir  /s /q TicketBookingServiceJunitTesting"
-                bat "git clone https://github.com/kishancs2020/TicketBookingServiceJunitTesting.git"
-                bat "mvn clean -f TicketBookingServiceJunitTesting"
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/raajaws/myfirstrep.git']])
             }
+            
         }
-        stage('install') {
+        stage('Build') {
             steps {
-                bat "mvn install -f TicketBookingServiceJunitTesting"
+                git branch: 'main', url: 'https://github.com/raajaws/myfirstrep.git'
+                bat ' python myfirstpy.py'
             }
-        }
-        stage('test') {
-            steps {
-                bat "mvn test -f TicketBookingServiceJunitTesting"
-            }
-        }
-        stage('package') {
-            steps {
-                bat "mvn package -f TicketBookingServiceJunitTesting"
-            }
-        }
+            
+        }        
     }
 }
