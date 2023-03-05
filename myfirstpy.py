@@ -1,1 +1,1 @@
-print(f"Test{2*4}")
+print(f"Test{5*5}")
